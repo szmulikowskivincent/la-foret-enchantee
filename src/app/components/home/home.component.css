@@ -1,0 +1,52 @@
+.container {
+  max-inline-size: 800px;
+  margin: 2em auto;
+  padding: 2em;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bordered-text {
+  border: 2px solid #4caf50; 
+  border-radius: 10px;
+  padding: 1em;
+  background-color: #f9f9f9; 
+}
+
+.container h3,
+.container ul {
+  margin-block-start: 1em;
+  color: #333;
+}
+
+.container ul {
+  list-style-type: disc;
+  margin-inline-start: 20px;
+}
+
+.container ul li {
+  margin-block-end: 10px;
+  font-size: 1em;
+  color: #555;
+}
+
+.footer-image {
+  text-align: center;
+  margin-block-start: 20px;
+}
+
+.footer-image img {
+  inline-size: 150px; /* Ajustez la taille selon vos préférences */
+  block-size: auto;
+}
+
+audio {
+  display: block;
+  margin: 20px auto;
+  inline-size: 100%;
+}
+
+h1 {
+  margin-inline-start: 850px;
+}

@@ -1,0 +1,55 @@
+.container {
+  text-align: center; 
+}
+
+.forest {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.tree {
+  position: relative;
+  inline-size: 150px; 
+  block-size: 150px; 
+}
+
+.tree-sapins {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree-level {
+  font-size: 30px; 
+  line-height: 1;
+  color: #228b22; 
+  margin-block-end: -5px; 
+}
+
+.tree-trunk {
+  font-size: 40px; 
+  color: #8b4513; 
+  margin-block-start: 5px; 
+}
+
+.forest-creature {
+  position: absolute;
+  inline-size: 150px; 
+  block-size: auto;
+}
+
+.dragon {
+  inset-block-end: -300px;
+  inset-inline-start: -200px; 
+}
+
+.wolf {
+  inset-block-end: -300px; 
+  inset-inline-end: -200px; 
+}
+
+
+
+

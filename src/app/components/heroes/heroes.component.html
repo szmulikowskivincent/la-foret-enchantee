@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="heroes">
+    <div
+      class="hero-card"
+      *ngFor="let hero of heroes"
+      (click)="selectHero(hero)"
+    >
+      <img [src]="hero.image" alt="{{ hero.name }}" />
+      <h3>{{ hero.name }}</h3>
+      <p>{{ hero.type }}</p>
+      <p class="description">{{ hero.description }}</p>
+    </div>
+  </div>
+  <div *ngIf="selectedHero" class="hero-details" align="center">
+    <h2>{{ selectedHero.name }}</h2>
+    <h3>Description :</h3>
+    <p>{{ selectedHero.description }}</p>
+    <h3>🎯 Choisissez une arme :</h3>
+    <ul class="weapons">
+      <li *ngFor="let weapon of weapons">{{ weapon }}</li>
+    </ul>
+  </div>
+</div>

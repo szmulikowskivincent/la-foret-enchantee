@@ -1,0 +1,47 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e6f2e6; 
+  color: #333;
+}
+
+.navbar {
+  background-color: #4caf50; 
+  padding: 1em;
+  text-align: center;
+}
+
+.navbar a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  padding: 2em;
+}
+
+.hero-card {
+  border: 1px solid #4caf50;
+  border-radius: 10px;
+  padding: 1em;
+  margin: 1em;
+  text-align: center;
+  background-color: white;
+}
+
+.hero-card img {
+  inline-size: 100px;
+  block-size: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hero-card h3 {
+  margin-block-start: 10px;
+  color: #4caf50;
+}
