@@ -1,0 +1,73 @@
+<h1 align="center">𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣👹🐉𓆩🖤𓆪🏴‍☠️☠💪🦅🧟‍♂️🦇🦕☠️☠️☠️𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣</h1>
+<div align="center">
+  <button class="play-button" (click)="goToZoneDeJeu()">
+    Jouer vers la zone de jeu
+  </button>
+</div>
+<div class="container" align="center">
+  <h3 style="color: red" align="center">
+    👉 Choisissez votre Super Héros, Monture, Monstre et Arme...
+  </h3>
+  <div class="selection-section">
+    <h2 align="center">-Super Héros-</h2>
+    <div class="heroes">
+      <div
+        class="hero-card"
+        *ngFor="let hero of heroes"
+        [ngClass]="{ selected: hero === selectedHero }"
+        (click)="selectHero(hero)"
+      >
+        <img [src]="hero.image" alt="{{ hero.name }}" />
+        <h3>{{ hero.name }}</h3>
+        <p>{{ hero.type }}</p>
+        <p class="description">{{ hero.description }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="selection-section">
+    <h2 align="center">-Monture-</h2>
+    <div class="mounts">
+      <div
+        class="mount-card"
+        *ngFor="let mount of mounts"
+        [ngClass]="{ selected: mount === selectedMount }"
+        (click)="selectMount(mount)"
+      >
+        <img [src]="mount.image" alt="{{ mount.name }}" />
+        <h3>{{ mount.name }}</h3>
+        <p>{{ mount.type }}</p>
+        <p class="description">{{ mount.description }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="selection-section">
+    <h2 align="center">-Monstre-</h2>
+    <div class="monsters">
+      <div
+        class="monster-card"
+        *ngFor="let monster of monsters"
+        [ngClass]="{ selected: monster === selectedMonster }"
+        (click)="selectMonster(monster)"
+      >
+        <img [src]="monster.image" alt="{{ monster.name }}" />
+        <h3>{{ monster.name }}</h3>
+        <p class="description">{{ monster.description }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="selection-section">
+    <h2 align="center">-Arme-</h2>
+    <div class="weapons">
+      <div
+        class="weapon-card"
+        *ngFor="let weapon of weapons"
+        [ngClass]="{ selected: weapon === selectedWeapon }"
+        (click)="selectWeapon(weapon)"
+      >
+        <img [src]="weapon.image" alt="{{ weapon.name }}" />
+        <h3>{{ weapon.name }}</h3>
+        <p class="description">{{ weapon.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

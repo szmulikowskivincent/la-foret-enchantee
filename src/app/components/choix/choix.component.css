@@ -12,6 +12,7 @@ body {
   overflow: hidden;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 20px;
 }
 
@@ -27,10 +28,10 @@ body {
 
 .play-button {
   background-color: yellow;
-  color: blue;
+  color: green;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 20px 50px;
+  font-size: 25px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -44,28 +45,28 @@ body {
   padding: 20px;
 }
 
-.container {
-  padding: 20px;
+.selection-section {
+  margin: 20px 0;
 }
 
-.bordered-text h3,
-.bordered-text ul {
+.selection-section h2 {
   color: #deb887;
 }
 
-.footer-image img {
-  display: block;
-  margin: 20px auto;
-  max-inline-size: 100%;
-}
-
-.mounts {
+.heroes,
+.mounts,
+.monsters,
+.weapons {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
-.mount-card {
+.hero-card,
+.mount-card,
+.monster-card,
+.weapon-card {
   cursor: pointer;
   border: 1px solid #4caf50;
   padding: 10px;
@@ -76,48 +77,49 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  inline-size: 300px;
-  block-size: 450px;
+  inline-size: 10%;
+  box-sizing: border-box;
 }
 
-.mount-card img {
-  max-inline-size: 250px;
+.hero-card,
+.weapon-card,
+.mount-card,
+.monster-card {
+  block-size: 430px;
+}
+
+.hero-card img,
+.mount-card img,
+.monster-card img,
+.weapon-card img {
+  max-inline-size: 200px;
   block-size: auto;
   display: block;
   margin: 0 auto;
   border-radius: 10px;
 }
 
+.hero-card h3,
 .mount-card h3,
-.mount-card p {
+.monster-card h3,
+.weapon-card h3,
+.hero-card p,
+.mount-card p,
+.monster-card p,
+.weapon-card p {
   margin: 0;
   text-align: center;
 }
 
-.mount-card .description {
+.hero-card .description,
+.mount-card .description,
+.monster-card .description,
+.weapon-card .description {
   margin-block-start: auto;
 }
 
-.description.selected,
-.weapons .selected {
+.selected {
   border: 2px solid red;
   padding: 5px;
   border-radius: 4px;
-}
-
-.mount-details {
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  display: inline-block;
-  max-inline-size: 80%;
-  text-align: center;
-}
-
-.mount-details h2,
-.mount-details h3,
-.mount-details p {
-  margin: 10px 0;
 }

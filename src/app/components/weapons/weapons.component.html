@@ -1,3 +1,29 @@
-<ul>
-  <li *ngFor="let weapon of weapons">{{ weapon }}</li>
-</ul>
+<div class="navbar">
+  <div class="navbar-logo">🌳 La <span>Forêt</span> Enchantée 🌳</div>
+  <button class="play-button" routerLink="/choix">Jouer</button>
+</div>
+<h1 align="center">𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣👹🐉𓆩🖤𓆪🏴‍☠️☠💪🦅🧟‍♂️🦇🦕☠️☠️☠️𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣</h1>
+<div class="container" align="center">
+  <div class="weapons">
+    <div
+      class="weapon-card"
+      *ngFor="let weapon of weapons"
+      (click)="selectWeapon(weapon)"
+    >
+      <img [src]="weapon.image" alt="{{ weapon.name }}" />
+      <h3>{{ weapon.name }}</h3>
+      <p class="description">{{ weapon.description }}</p>
+    </div>
+  </div>
+  <div *ngIf="selectedWeapon" class="weapon-details">
+    <h2>{{ selectedWeapon.name }}</h2>
+    <h3>🎯Description :</h3>
+    <p>{{ selectedWeapon.description }}</p>
+  </div>
+</div>
+<h3 style="color: red" align="center">
+  ➡️ Cliquer sur une arme pour afficher sa déscription...
+</h3>
+<div class="footer-image" align="center">
+  <img src="assets/images/nain-acceuil.gif" alt="Nain acceuil" width="6%" />
+</div>

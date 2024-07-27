@@ -10,6 +10,8 @@ import { MountsComponent } from './components/mounts/mounts.component';
 import { MonstersComponent } from './components/monsters/monsters.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ChoixComponent } from './components/choix/choix.component';
+import { ZoneDeJeuComponent } from './components/zone-de-jeu/zone-de-jeu.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { FooterComponent } from './components/footer/footer.component';
     MountsComponent,
     MonstersComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    ChoixComponent,
+    ZoneDeJeuComponent
   ],
   imports: [
     BrowserModule,

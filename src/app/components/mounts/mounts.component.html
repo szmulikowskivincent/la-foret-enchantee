@@ -1,3 +1,32 @@
-<ul>
-  <li *ngFor="let mount of mounts">{{ mount }}</li>
-</ul>
+<div class="navbar">
+  <div class="navbar-logo">🌳 La <span>Forêt</span> Enchantée 🌳</div>
+  <button class="play-button" routerLink="/choix">Jouer</button>
+</div>
+<h1 align="center">𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣👹🐉𓆩🖤𓆪🏴‍☠️☠💪🦅🧟‍♂️🦇🦕☠️☠️☠️𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣</h1>
+<div align="center">
+  <div class="container">
+    <div class="mounts">
+      <div
+        class="mount-card"
+        *ngFor="let mount of mounts"
+        (click)="selectMount(mount)"
+      >
+        <img [src]="mount.image" alt="{{ mount.name }}" />
+        <h3>{{ mount.name }}</h3>
+        <p>{{ mount.type }}</p>
+        <p class="description">{{ mount.description }}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="selectedMount" class="mount-details">
+    <h2>{{ selectedMount.name }}</h2>
+    <h3>Description :</h3>
+    <p>{{ selectedMount.description }}</p>
+  </div>
+  <h3 style="color: red" align="center">
+    ➡️ Cliquer sur une monture pour afficher sa déscription...
+  </h3>
+  <div class="footer-image" align="center">
+    <img src="assets/images/nain-acceuil.gif" alt="Nain acceuil" width="6%" />
+  </div>
+</div>

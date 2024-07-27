@@ -1,5 +1,5 @@
 .container {
-  text-align: center; 
+  text-align: center;
 }
 
 .forest {
@@ -11,8 +11,8 @@
 
 .tree {
   position: relative;
-  inline-size: 150px; 
-  block-size: 150px; 
+  inline-size: 150px;
+  block-size: 150px;
 }
 
 .tree-sapins {
@@ -22,34 +22,145 @@
 }
 
 .tree-level {
-  font-size: 30px; 
+  font-size: 30px;
   line-height: 1;
-  color: #228b22; 
-  margin-block-end: -5px; 
+  color: #228b22;
+  margin-block-end: -5px;
 }
 
 .tree-trunk {
-  font-size: 40px; 
-  color: #8b4513; 
-  margin-block-start: 5px; 
+  font-size: 40px;
+  color: #8b4513;
+  margin-block-start: 5px;
 }
 
 .forest-creature {
   position: absolute;
-  inline-size: 150px; 
+  inline-size: 150px;
   block-size: auto;
 }
 
 .dragon {
   inset-block-end: -300px;
-  inset-inline-start: -200px; 
+  inset-inline-start: -200px;
 }
 
 .wolf {
-  inset-block-end: -300px; 
-  inset-inline-end: -200px; 
+  inset-block-end: -300px;
+  inset-inline-end: -200px;
 }
 
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #deb887;
+}
+.navbar-logo span {
+  color: #fff;
+}
+.container {
+  padding: 20px;
+}
+.bordered-text h3,
+.bordered-text ul {
+  color: #deb887;
+}
+.footer-image img {
+  display: block;
+  margin: 20px auto;
+  max-inline-size: 100%;
+}
+.forest {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tree {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+.tree-sapins {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tree-level {
+  font-size: 20px;
+}
+.tree-trunk {
+  font-size: 20px;
+}
+.forest-creature {
+  inline-size: 100px;
+  block-size: auto;
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+}
+.blood-drop {
+  position: absolute;
+  inline-size: 10px;
+  block-size: 10px;
+  background-color: red;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  from {
+    transform: translateY(-100vh);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+.mountain {
+  white-space: pre;
+  font-family: monospace;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 20px;
+}
+.brown {
+  color: #deb887;
+}
+.green {
+  color: #228b22;
+}
 
+.play-button {
+  background-color: yellow;
+  color: blue;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
+.play-button:hover {
+  background-color: gold;
+}
 
+.container {
+  padding: 20px;
+}

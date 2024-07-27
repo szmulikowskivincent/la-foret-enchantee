@@ -1,0 +1,176 @@
+.weapon-card {
+  cursor: pointer;
+  border: 1px solid #4caf50;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: background-color 0.3s;
+  display: inline-block;
+  inline-size: 380px;
+  block-size: 450px;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.weapon-card img {
+  max-inline-size: 350px;
+  block-size: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.weapon-card h3 {
+  margin: 10px 0 0;
+  text-align: center;
+}
+
+.weapon-card .description {
+  position: absolute;
+  inset-block-end: 10px;
+  inset-inline-start: 10px;
+  inset-inline-end: 10px;
+  margin: 0;
+  text-align: center;
+}
+
+.description.selected,
+.weapons .selected {
+  border: 2px solid red;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.weapon-details {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  display: inline-block;
+  max-inline-size: 80%;
+  text-align: center;
+}
+
+.weapon-details h2,
+.weapon-details h3,
+.weapon-details p {
+  margin: 10px 0;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #deb887;
+}
+.navbar-logo span {
+  color: #fff;
+}
+.container {
+  padding: 20px;
+}
+.bordered-text h3,
+.bordered-text ul {
+  color: #deb887;
+}
+.footer-image img {
+  display: block;
+  margin: 20px auto;
+  max-inline-size: 100%;
+}
+.forest {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tree {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+.tree-sapins {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tree-level {
+  font-size: 20px;
+}
+.tree-trunk {
+  font-size: 20px;
+}
+.forest-creature {
+  inline-size: 100px;
+  block-size: auto;
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+}
+.blood-drop {
+  position: absolute;
+  inline-size: 10px;
+  block-size: 10px;
+  background-color: red;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  from {
+    transform: translateY(-100vh);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+.mountain {
+  white-space: pre;
+  font-family: monospace;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 20px;
+}
+.brown {
+  color: #deb887;
+}
+.green {
+  color: #228b22;
+}
+
+.play-button {
+  background-color: yellow;
+  color: blue;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.play-button:hover {
+  background-color: gold;
+}
+
+.container {
+  padding: 20px;
+}

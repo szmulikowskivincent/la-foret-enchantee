@@ -6,6 +6,8 @@ import { HomeComponent } from './components/home/home.component';
 import { MonstersComponent } from './components/monsters/monsters.component';
 import { MountsComponent } from './components/mounts/mounts.component';
 import { WeaponsComponent } from './components/weapons/weapons.component';
+import { ChoixComponent } from './components/choix/choix.component';
+import { ZoneDeJeuComponent } from './components/zone-de-jeu/zone-de-jeu.component';
 
 
 const routes: Routes = [
@@ -14,7 +16,9 @@ const routes: Routes = [
   { path: 'heroes', component: HeroesComponent },
   { path: 'weapons', component: WeaponsComponent },
   { path: 'mounts', component: MountsComponent },
-  { path: 'monsters', component: MonstersComponent }
+  { path: 'monsters', component: MonstersComponent },
+  { path: 'choix', component: ChoixComponent },
+  { path: 'zone-de-jeu', component: ZoneDeJeuComponent }
 ];
 
 @NgModule({
