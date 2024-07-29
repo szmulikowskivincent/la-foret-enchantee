@@ -96,10 +96,15 @@ body {
 }
 
 .points-container {
-  font-size: 16px;
-  color: #fa0707;
+  display: flex;
+  align-items: center;
+  color: red;
 }
 
+.lutin-container {
+  display: flex;
+  margin-inline-start: 10px; 
+}
 .center-button {
   display: flex;
   justify-content: center;

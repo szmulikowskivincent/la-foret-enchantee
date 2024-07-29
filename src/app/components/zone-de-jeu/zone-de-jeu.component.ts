@@ -13,6 +13,7 @@ export class ZoneDeJeuComponent implements OnInit {
   selectedWeapon: any;
   points: number = 0;
   private pointSound = new Audio('assets/audio/07-galaga-dive-2-83169.mp3');
+  gameOver: boolean = false;
 
   constructor(private route: ActivatedRoute) {}
 
@@ -26,6 +27,8 @@ export class ZoneDeJeuComponent implements OnInit {
   }
 
   startGame() {
+    if (this.gameOver) return;
+
     const emoticonContainer = document.getElementById('emoticonContainer');
     if (emoticonContainer) {
       emoticonContainer.innerHTML = '';
@@ -50,6 +53,8 @@ export class ZoneDeJeuComponent implements OnInit {
   }
 
   launchArrows() {
+    if (this.gameOver) return;
+
     const emoticonContainer = document.getElementById('emoticonContainer');
     if (emoticonContainer) {
       const arrow = document.createElement('div');
@@ -87,6 +92,46 @@ export class ZoneDeJeuComponent implements OnInit {
     }
   }
 
+  launchWolves() {
+    if (this.gameOver) return;
+
+    const emoticonContainer = document.getElementById('emoticonContainer');
+    if (emoticonContainer) {
+      const wolf = document.createElement('div');
+      wolf.className = 'wolf';
+      wolf.textContent = '🐺';
+      emoticonContainer.appendChild(wolf);
+
+      const emoticons = emoticonContainer.querySelectorAll(
+        '.emoticon'
+      ) as NodeListOf<HTMLElement>;
+      emoticons.forEach((emoticon: HTMLElement) => {
+        const boundingRect = emoticon.getBoundingClientRect();
+        const wolfClone = wolf.cloneNode(true) as HTMLElement;
+        wolfClone.style.position = 'absolute';
+        wolfClone.style.left = `${boundingRect.left}px`;
+        wolfClone.style.top = `${boundingRect.top}px`;
+        document.body.appendChild(wolfClone);
+
+        const wolfAnimation = wolfClone.animate(
+          [{ transform: 'translateX(0)' }, { transform: 'translateX(100px)' }],
+          {
+            duration: 1000,
+            iterations: 1,
+            easing: 'ease-in-out',
+            fill: 'forwards',
+          }
+        );
+
+        wolfAnimation.onfinish = () => {
+          this.checkCollisionsWithWolves();
+          document.body.removeChild(wolfClone);
+        };
+      });
+      emoticonContainer.removeChild(wolf);
+    }
+  }
+
   createAsterisk(container: HTMLElement, x: number, y: number) {
     const asterisk = document.createElement('div');
     asterisk.className = 'asterisk';
@@ -121,6 +166,8 @@ export class ZoneDeJeuComponent implements OnInit {
   }
 
   checkCollisions() {
+    if (this.gameOver) return;
+
     const emoticonContainer = document.getElementById('emoticonContainer');
     if (emoticonContainer) {
       const arrows = document.querySelectorAll(
@@ -141,18 +188,48 @@ export class ZoneDeJeuComponent implements OnInit {
               emoticonRect.left,
               emoticonRect.top
             );
+            this.addElfEmoji();
           }
         });
       });
     }
   }
 
-  isCollision(arrowRect: DOMRect, emoticonRect: DOMRect): boolean {
+  checkCollisionsWithWolves() {
+    if (this.gameOver) return;
+
+    const emoticonContainer = document.getElementById('emoticonContainer');
+    if (emoticonContainer) {
+      const wolves = document.querySelectorAll(
+        '.wolf'
+      ) as NodeListOf<HTMLElement>;
+      const emoticons = emoticonContainer.querySelectorAll(
+        '.emoticon'
+      ) as NodeListOf<HTMLElement>;
+
+      wolves.forEach((wolf) => {
+        const wolfRect = wolf.getBoundingClientRect();
+        emoticons.forEach((emoticon) => {
+          const emoticonRect = emoticon.getBoundingClientRect();
+          if (this.isCollision(wolfRect, emoticonRect)) {
+            this.updatePointsWithWolves();
+            this.createAsterisk(
+              emoticonContainer,
+              emoticonRect.left,
+              emoticonRect.top
+            );
+          }
+        });
+      });
+    }
+  }
+
+  isCollision(rect1: DOMRect, rect2: DOMRect): boolean {
     return !(
-      arrowRect.right < emoticonRect.left ||
-      arrowRect.left > emoticonRect.right ||
-      arrowRect.bottom < emoticonRect.top ||
-      arrowRect.top > emoticonRect.bottom
+      rect1.right < rect2.left ||
+      rect1.left > rect2.right ||
+      rect1.bottom < rect2.top ||
+      rect1.top > rect2.bottom
     );
   }
 
@@ -162,14 +239,117 @@ export class ZoneDeJeuComponent implements OnInit {
     this.playPointSound();
   }
 
+  updatePointsWithWolves() {
+    this.points += 10;
+    this.updatePointsDisplay();
+    this.playPointSound();
+    this.addWolfEmoji();
+  }
+
   updatePointsDisplay() {
     const pointsElement = document.getElementById('points');
     if (pointsElement) {
       pointsElement.textContent = this.points.toString();
+      this.checkWinCondition();
     }
   }
 
   playPointSound() {
     this.pointSound.play();
+  }
+
+  addWolfEmoji() {
+    const wolfContainer = document.getElementById('wolfContainer');
+    if (wolfContainer) {
+      const wolfEmoji = document.createElement('span');
+      wolfEmoji.className = 'wolf-emoji';
+      wolfEmoji.textContent = '🐺';
+      wolfContainer.appendChild(wolfEmoji);
+
+      if (wolfContainer.children.length > 10) {
+        wolfContainer.removeChild(wolfContainer.firstChild!);
+      }
+    }
+  }
+
+  addElfEmoji() {
+    const elfContainer = document.getElementById('elfContainer');
+    if (elfContainer) {
+      const elfEmoji = document.createElement('span');
+      elfEmoji.className = 'elf-emoji';
+      elfEmoji.textContent = '🧚';
+      elfContainer.appendChild(elfEmoji);
+
+      if (elfContainer.children.length > 5) {
+        elfContainer.removeChild(elfContainer.firstChild!);
+      }
+    }
+  }
+
+  checkWinCondition() {
+    if (this.points >= 5000) {
+      alert('You Win!');
+      this.gameOver = true;
+      this.stopAllAnimations();
+      this.disableButtons();
+
+      const restartButton = document.getElementById('restartButton');
+      if (restartButton) {
+        restartButton.style.display = 'inline';
+      }
+    }
+  }
+
+  stopAllAnimations() {
+    const animations = document.querySelectorAll(
+      '*[style*="animation"]'
+    ) as NodeListOf<HTMLElement>;
+    animations.forEach((animation) => {
+      animation.style.animationPlayState = 'paused';
+    });
+  }
+
+  disableButtons() {
+    const buttons = document.querySelectorAll(
+      'button'
+    ) as NodeListOf<HTMLButtonElement>;
+    buttons.forEach((button) => {
+      button.disabled = true;
+    });
+  }
+
+  restartGame() {
+    this.points = 0;
+    this.updatePointsDisplay();
+    this.gameOver = false;
+
+    const buttons = document.querySelectorAll(
+      'button'
+    ) as NodeListOf<HTMLButtonElement>;
+    buttons.forEach((button) => {
+      button.disabled = false;
+    });
+
+    const emoticonContainer = document.getElementById('emoticonContainer');
+    if (emoticonContainer) {
+      emoticonContainer.innerHTML = '';
+    }
+
+    const wolfContainer = document.getElementById('wolfContainer');
+    if (wolfContainer) {
+      wolfContainer.innerHTML = '';
+    }
+
+    const elfContainer = document.getElementById('elfContainer');
+    if (elfContainer) {
+      elfContainer.innerHTML = '';
+    }
+
+    const restartButton = document.getElementById('restartButton');
+    if (restartButton) {
+      restartButton.style.display = 'none';
+    }
+
+    this.startGame();
   }
 }
