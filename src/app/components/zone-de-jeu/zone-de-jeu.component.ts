@@ -13,6 +13,7 @@ export class ZoneDeJeuComponent implements OnInit {
   selectedWeapon: any;
   points: number = 0;
   private pointSound = new Audio('assets/audio/07-galaga-dive-2-83169.mp3');
+  private laughSound = new Audio('assets/audio/game-over-31-179699.mp3');
   gameOver: boolean = false;
 
   constructor(private route: ActivatedRoute) {}
@@ -288,10 +289,19 @@ export class ZoneDeJeuComponent implements OnInit {
 
   checkWinCondition() {
     if (this.points >= 5000) {
-      alert('You Win!');
       this.gameOver = true;
       this.stopAllAnimations();
       this.disableButtons();
+
+      const winMessage = document.getElementById('winMessage');
+      if (winMessage) {
+        this.createAsterisk(
+          winMessage,
+          winMessage.offsetLeft,
+          winMessage.offsetTop
+        );
+        winMessage.style.display = 'block';
+      }
 
       const restartButton = document.getElementById('restartButton');
       if (restartButton) {
@@ -345,11 +355,39 @@ export class ZoneDeJeuComponent implements OnInit {
       elfContainer.innerHTML = '';
     }
 
+    const winMessage = document.getElementById('winMessage');
+    if (winMessage) {
+      winMessage.style.display = 'none';
+    }
+
     const restartButton = document.getElementById('restartButton');
     if (restartButton) {
       restartButton.style.display = 'none';
     }
 
     this.startGame();
+  }
+
+  displayWinMessage() {
+    const winMessage = document.getElementById('winMessage');
+    if (winMessage) {
+      winMessage.textContent = '🎉 You Win! 🎉';
+      winMessage.style.color = 'green';
+      winMessage.style.fontSize = '24px';
+    }
+  }
+
+  displayGameOverMessage() {
+    const gameOverMessage = document.getElementById('gameOverMessage');
+    if (gameOverMessage) {
+      gameOverMessage.textContent = 'Game Over!';
+      gameOverMessage.style.color = 'red';
+      gameOverMessage.style.fontSize = '24px';
+    }
+    this.playLaughSound();
+  }
+
+  playLaughSound() {
+    this.laughSound.play();
   }
 }

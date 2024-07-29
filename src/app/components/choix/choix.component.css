@@ -47,6 +47,7 @@ body {
 
 .selection-section {
   margin: 20px 0;
+  margin-block-end: 20px;
 }
 
 .selection-section h2 {
@@ -59,8 +60,9 @@ body {
 .weapons {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: stretch;
+  gap: 10px; /* Ajouter un espace fixe entre les cartes */
 }
 
 .hero-card,
@@ -70,22 +72,17 @@ body {
   cursor: pointer;
   border: 1px solid #4caf50;
   padding: 10px;
-  margin: 10px;
+  margin: 5px;
   border-radius: 8px;
   background-color: #fff;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, border-color 0.3s;
   display: flex;
   flex-direction: column;
   align-items: center;
   inline-size: 10%;
   box-sizing: border-box;
-}
-
-.hero-card,
-.weapon-card,
-.mount-card,
-.monster-card {
-  block-size: 430px;
+  block-size: 300px;
+  vertical-align: top;
 }
 
 .hero-card img,
@@ -93,6 +90,7 @@ body {
 .monster-card img,
 .weapon-card img {
   max-inline-size: 200px;
+  inline-size: 100px;
   block-size: auto;
   display: block;
   margin: 0 auto;
@@ -109,6 +107,7 @@ body {
 .weapon-card p {
   margin: 0;
   text-align: center;
+  margin: 5px 0;
 }
 
 .hero-card .description,
@@ -122,4 +121,22 @@ body {
   border: 2px solid red;
   padding: 5px;
   border-radius: 4px;
+  background-color: #ffcccc;
+}
+
+.hero-card.selected,
+.mount-card.selected,
+.monster-card.selected,
+.weapon-card.selected {
+  border: 2px solid red;
+  background-color: #ffcccc;
+}
+
+.hero-card,
+.mount-card,
+.monster-card,
+.weapon-card {
+  margin: 5px;
+  display: inline-block;
+  vertical-align: top;
 }

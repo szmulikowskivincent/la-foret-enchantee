@@ -16,29 +16,38 @@
     </button>
     &#160;&#160;&#160;&#160;
     <button
-      style="background-color: red"
       class="launch-arrows-button"
       (click)="launchArrows()"
+      style="
+        background-color: rgb(255, 0, 195);
+        border-radius: 5px;
+        font-size: 18px;
+      "
     >
       Lancer des flèches
     </button>
     &#160;&#160;&#160;&#160;
     <button
-      style="
-        background-color: rgb(124, 124, 126);
-        font-size: 16px;
-        border-radius: 5px;
-      "
       class="launch-wolves-button"
       (click)="launchWolves()"
+      style="
+        background-color: rgb(7, 96, 250);
+        border-radius: 5px;
+        font-size: 18px;
+      "
     >
       Lancer des loups
     </button>
     &#160;&#160;&#160;&#160;
     <button
       id="restartButton"
-      style="background-color: #4caf50; font-size: 16px; border-radius: 5px"
+      class="restart-button"
       (click)="restartGame()"
+      style="
+        background-color: rgb(129, 128, 127);
+        border-radius: 5px;
+        font-size: 18px;
+      "
     >
       Recommencer
     </button>
@@ -81,6 +90,11 @@
       <!-- Emoticons will be dynamically added here -->
     </div>
   </div>
+
+  <div id="winMessage" class="win-message">* You Win! Game Over *</div>
+  <!-- Ajoutez ces éléments où vous voulez afficher les messages -->
+  <div id="gameOverMessage"></div>
+  <div id="winMessage"></div>
 
   <h3 align="center">𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣👹🐉𓆩🖤𓆪🏴‍☠️☠💪🦅🧟‍♂️🦇🦕☠️☠️☠️𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣</h3>
 
