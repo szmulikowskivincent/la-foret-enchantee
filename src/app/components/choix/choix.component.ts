@@ -97,7 +97,7 @@ export class ChoixComponent {
     },
     {
       name: 'Couteau',
-      image: 'assets/images/chien-enrage.jpg',
+      image: 'assets/images/couteau.jpg',
       description: 'Discretion',
     },
     { name: 'Arc', image: 'assets/images/arc.avif', description: 'Précision' },

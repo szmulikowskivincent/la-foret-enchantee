@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { Hero, DataService } from 'src/app/services/data.service';
 
-
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.css']
+  styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent {
   heroes: Hero[] = [];
@@ -21,9 +20,3 @@ export class HeroesComponent {
     this.selectedHero = hero;
   }
 }
-
-
-
-
-
-

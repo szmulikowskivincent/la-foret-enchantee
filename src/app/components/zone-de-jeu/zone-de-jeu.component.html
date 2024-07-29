@@ -1,1 +1,65 @@
-
+<div class="navbar">
+  <div class="navbar-logo">🌳 La Forêt Enchantée 🌳</div>
+  <div class="points-container">
+    <h2>
+      Points: <span id="points">{{ points }}</span>
+    </h2>
+  </div>
+</div>
+<div class="container">
+  <div class="center-button">
+    <button class="start-game-button" (click)="startGame()">
+      Commencer la partie
+    </button>
+    &#160;&#160;&#160;&#160;
+    <button
+      style="background-color: red"
+      class="launch-arrows-button"
+      (click)="launchArrows()"
+    >
+      Lancer des flèches
+    </button>
+  </div>
+  <h3 align="center" style="color: yellow">
+    ⚠️☠️🚨 Votre zone de Jeu ▄︻デ══━一💥
+  </h3>
+  <h3 align="center">𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣👹🐉𓆩🖤𓆪🏴‍☠️☠💪🦅🧟‍♂️🦇🦕☠️☠️☠️𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣</h3>
+  <div class="container">
+    <div class="cards-container">
+      <div *ngIf="selectedHero" class="hero-card">
+        <img [src]="selectedHero.image" alt="{{ selectedHero.name }}" />
+        <h3>{{ selectedHero.name }}</h3>
+        <p>{{ selectedHero.type }}</p>
+        <p class="description">{{ selectedHero.description }}</p>
+      </div>
+      <div *ngIf="selectedMount" class="mount-card">
+        <img [src]="selectedMount.image" alt="{{ selectedMount.name }}" />
+        <h3>{{ selectedMount.name }}</h3>
+        <p>{{ selectedMount.type }}</p>
+        <p class="description">{{ selectedMount.description }}</p>
+      </div>
+      <div *ngIf="selectedMonster" class="monster-card">
+        <img [src]="selectedMonster.image" alt="{{ selectedMonster.name }}" />
+        <h3>{{ selectedMonster.name }}</h3>
+        <p class="description">{{ selectedMonster.description }}</p>
+      </div>
+      <div *ngIf="selectedWeapon" class="weapon-card">
+        <img [src]="selectedWeapon.image" alt="{{ selectedWeapon.name }}" />
+        <h3>{{ selectedWeapon.name }}</h3>
+        <p class="description">{{ selectedWeapon.description }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="tree-border">
+    <div class="emoticon-container" id="emoticonContainer">
+      <!-- Emoticons will be dynamically added here -->
+    </div>
+  </div>
+  <h3 align="center">𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣👹🐉𓆩🖤𓆪🏴‍☠️☠💪🦅🧟‍♂️🦇🦕☠️☠️☠️𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣</h3>
+  <div align="center">
+    <audio controls autoplay loop>
+      <source src="assets/audio/a-afligida-170515.mp3" type="audio/mpeg" />
+      Votre navigateur ne supporte pas l'élément audio.
+    </audio>
+  </div>
+</div>

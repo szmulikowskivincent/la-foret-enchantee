@@ -1,22 +1,28 @@
-// monsters.component.ts
 import { Component } from '@angular/core';
-
-export interface Monster {
-  name: string;
-  description: string;
-  image: string;
-}
+import { Monster } from 'src/app/interfaces/monster';
 
 @Component({
   selector: 'app-monsters',
   templateUrl: './monsters.component.html',
-  styleUrls: ['./monsters.component.css']
+  styleUrls: ['./monsters.component.css'],
 })
 export class MonstersComponent {
   monsters: Monster[] = [
-    { name: 'Loup', description: 'Un loup féroce.', image: 'assets/images/loup.gif' },
-    { name: 'Dragon', description: 'Un dragon cracheur de feu.', image: 'assets/images/dragon.gif' },
-    { name: 'Chien enragé', description: 'Un chien enragé terrifiant.', image: 'assets/images/chien-enrage.jpg' }
+    {
+      name: 'Loup',
+      description: 'Un loup féroce.',
+      image: 'assets/images/loup.gif',
+    },
+    {
+      name: 'Dragon',
+      description: 'Un dragon cracheur de feu.',
+      image: 'assets/images/dragon.gif',
+    },
+    {
+      name: 'Chien enragé',
+      description: 'Un chien enragé terrifiant.',
+      image: 'assets/images/chien-enrage.jpg',
+    },
   ];
 
   selectedMonster: Monster | null = null;
@@ -25,4 +31,3 @@ export class MonstersComponent {
     this.selectedMonster = monster;
   }
 }
-
