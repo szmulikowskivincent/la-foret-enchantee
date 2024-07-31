@@ -1,5 +1,29 @@
 <div class="navbar">
   <div class="navbar-logo">🌳 La Forêt Enchantée 🌳</div>
+  <div class="player-info">
+    <img [src]="playerAvatar" alt="Avatar" />
+    <div>
+      <h3 style="color: rgb(242, 255, 0)">Joueur: {{ playerName }}</h3>
+      <h3 style="color: red">Dernier score: {{ playerScore }}</h3>
+    </div>
+    <div class="avatar-selector">
+      <label for="avatarSelect" style="display: none">Choisir un avatar:</label>
+      <select
+        id="avatarSelect"
+        (change)="changeAvatar($event)"
+        style="
+          inline-size: 125%;
+          border-radius: 5px;
+          border-color: chartreuse;
+          font-size: 18px;
+        "
+      >
+        <option *ngFor="let avatar of availableAvatars" [value]="avatar.src">
+          {{ avatar.name }}
+        </option>
+      </select>
+    </div>
+  </div>
   <div class="points-container">
     <h2>
       Points: <span id="points">{{ points }}</span>
@@ -91,8 +115,6 @@
     </div>
   </div>
 
-  <div id="winMessage" class="win-message">* You Win! Game Over *</div>
-  <!-- Ajoutez ces éléments où vous voulez afficher les messages -->
   <div id="gameOverMessage"></div>
   <div id="winMessage"></div>
 

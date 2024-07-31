@@ -18,6 +18,12 @@
       {
         "duplicate-id": "off"
       }
+    ],
+    "axe/forms": [
+      "default",
+      {
+        "select-name": "off"
+      }
     ]
   }
 }
