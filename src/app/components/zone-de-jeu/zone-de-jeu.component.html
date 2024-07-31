@@ -1,17 +1,5 @@
 <div class="navbar">
   <div class="navbar-logo">🌳 La Forêt Enchantée 🌳</div>
-  <div class="player-info">
-    <img
-      alt="Avatar du joueur"
-      class="player-avatar"
-      src="assets/avatar/Avatar/avatar1.png"
-    />
-    <h2 style="color: chartreuse">{{ playerName }}</h2>
-    <h2 style="color: red">
-      Score: <span id="points">{{ points }}</span>
-    </h2>
-    <h3 style="color: blue">High Score: {{ playerScore }}</h3>
-  </div>
   <div class="points-container">
     <h2>
       Points: <span id="points">{{ points }}</span>
@@ -19,6 +7,19 @@
     <div id="wolfContainer"></div>
     <div id="elfContainer"></div>
   </div>
+</div>
+<br />
+<div class="player-info">
+  <img
+    alt="Avatar du joueur"
+    class="player-avatar"
+    src="assets/avatar/Avatar/avatar1.png"
+  />
+  <h2 style="color: chartreuse">{{ playerName }}</h2>
+  <h2 style="color: red">
+    Score: <span id="points">{{ points }}</span>
+  </h2>
+  <h3 style="color: blue">High Score: {{ playerScore }}</h3>
 </div>
 <div class="container">
   <div class="center-button">
