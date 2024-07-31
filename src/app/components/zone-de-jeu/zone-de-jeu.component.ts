@@ -7,51 +7,62 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./zone-de-jeu.component.css'],
 })
 export class ZoneDeJeuComponent implements OnInit {
-  playerAvatar: string = 'assets/avatar/Avatar-Défaut.webp';
-  availableAvatars: { name: string; src: string }[] = [
-    { name: 'Messenger', src: 'assets/avatar/Avatar/avatar1.png' },
-    { name: 'Bleu', src: 'assets/avatar/Avatar/avatar-default-icon.png' },
-    { name: 'Noir', src: 'assets/avatar/Avatar/Avatar_Defaut.png' },
-  ];
-
   selectedHero: any;
   selectedMount: any;
   selectedMonster: any;
   selectedWeapon: any;
   points: number = 0;
+  playerName: string = 'Vincent';
+  playerScore: number = 5126;
+  playerAvatar: string = 'assets/avatar/Avatar/avatar1.png';
   private pointSound = new Audio('assets/audio/07-galaga-dive-2-83169.mp3');
   private laughSound = new Audio('assets/audio/game-over-31-179699.mp3');
   gameOver: boolean = false;
-
-  playerName: string = 'Vincent';
-  playerScore: number = 5126;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.selectedHero = params['hero'] ? JSON.parse(params['hero']) : null;
-      this.selectedMount = params['mount'] ? JSON.parse(params['mount']) : null;
-      this.selectedMonster = params['monster']
-        ? JSON.parse(params['monster'])
-        : null;
-      this.selectedWeapon = params['weapon']
-        ? JSON.parse(params['weapon'])
-        : null;
+      this.selectedHero = JSON.parse(params['hero']);
+      this.selectedMount = JSON.parse(params['mount']);
+      this.selectedMonster = JSON.parse(params['monster']);
+      this.selectedWeapon = JSON.parse(params['weapon']);
     });
+    this.loadPlayerInfo();
   }
 
-  changeAvatar(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const selectedAvatarSrc = selectElement.value;
-    if (
-      this.availableAvatars.some((avatar) => avatar.src === selectedAvatarSrc)
-    ) {
-      this.playerAvatar = selectedAvatarSrc;
+  loadPlayerInfo() {
+    const storedName = localStorage.getItem('playerName');
+    const storedScore = localStorage.getItem('playerScore');
+    const storedAvatar = localStorage.getItem('playerAvatar');
+
+    if (storedName) {
+      this.playerName = storedName;
+    }
+    if (storedScore) {
+      this.playerScore = +storedScore;
+    }
+    if (storedAvatar) {
+      this.playerAvatar = storedAvatar;
     }
   }
 
-  startGame(): void {
+  updatePlayerScore(newScore: number) {
+    this.playerScore = newScore;
+    localStorage.setItem('playerScore', newScore.toString());
+  }
+
+  updatePlayerName(newName: string) {
+    this.playerName = newName;
+    localStorage.setItem('playerName', newName);
+  }
+
+  updatePlayerAvatar(newAvatar: string) {
+    this.playerAvatar = newAvatar;
+    localStorage.setItem('playerAvatar', newAvatar);
+  }
+
+  startGame() {
     if (this.gameOver) return;
 
     const emoticonContainer = document.getElementById('emoticonContainer');
@@ -77,7 +88,7 @@ export class ZoneDeJeuComponent implements OnInit {
     }
   }
 
-  launchArrows(): void {
+  launchArrows() {
     if (this.gameOver) return;
 
     const emoticonContainer = document.getElementById('emoticonContainer');
@@ -87,24 +98,37 @@ export class ZoneDeJeuComponent implements OnInit {
       arrow.textContent = '➡️';
       emoticonContainer.appendChild(arrow);
 
-      const emoticons = Array.from(
-        emoticonContainer.getElementsByClassName('emoticon')
-      );
-      emoticons.forEach((emoticon) => {
-        if (this.checkCollision(arrow, emoticon as HTMLElement)) {
-          emoticon.remove();
-          this.points += 10;
-          this.pointSound.play();
-        }
-      });
+      const emoticons = emoticonContainer.querySelectorAll(
+        '.emoticon'
+      ) as NodeListOf<HTMLElement>;
+      emoticons.forEach((emoticon: HTMLElement) => {
+        const boundingRect = emoticon.getBoundingClientRect();
+        const arrowClone = arrow.cloneNode(true) as HTMLElement;
+        arrowClone.style.position = 'absolute';
+        arrowClone.style.left = `${boundingRect.left}px`;
+        arrowClone.style.top = `${boundingRect.top}px`;
+        document.body.appendChild(arrowClone);
 
-      setTimeout(() => {
-        arrow.remove();
-      }, 1000);
+        const arrowAnimation = arrowClone.animate(
+          [{ transform: 'translateX(0)' }, { transform: 'translateX(100px)' }],
+          {
+            duration: 1000,
+            iterations: 1,
+            easing: 'ease-in-out',
+            fill: 'forwards',
+          }
+        );
+
+        arrowAnimation.onfinish = () => {
+          this.checkCollisions();
+          document.body.removeChild(arrowClone);
+        };
+      });
+      emoticonContainer.removeChild(arrow);
     }
   }
 
-  launchWolves(): void {
+  launchWolves() {
     if (this.gameOver) return;
 
     const emoticonContainer = document.getElementById('emoticonContainer');
@@ -114,62 +138,298 @@ export class ZoneDeJeuComponent implements OnInit {
       wolf.textContent = '🐺';
       emoticonContainer.appendChild(wolf);
 
-      const emoticons = Array.from(
-        emoticonContainer.getElementsByClassName('emoticon')
-      );
-      emoticons.forEach((emoticon) => {
-        if (this.checkCollision(wolf, emoticon as HTMLElement)) {
-          emoticon.remove();
-          this.points -= 10;
-          this.laughSound.play();
-        }
-      });
+      const emoticons = emoticonContainer.querySelectorAll(
+        '.emoticon'
+      ) as NodeListOf<HTMLElement>;
+      emoticons.forEach((emoticon: HTMLElement) => {
+        const boundingRect = emoticon.getBoundingClientRect();
+        const wolfClone = wolf.cloneNode(true) as HTMLElement;
+        wolfClone.style.position = 'absolute';
+        wolfClone.style.left = `${boundingRect.left}px`;
+        wolfClone.style.top = `${boundingRect.top}px`;
+        document.body.appendChild(wolfClone);
 
-      setTimeout(() => {
-        wolf.remove();
-      }, 1000);
+        const wolfAnimation = wolfClone.animate(
+          [{ transform: 'translateX(0)' }, { transform: 'translateX(100px)' }],
+          {
+            duration: 1000,
+            iterations: 1,
+            easing: 'ease-in-out',
+            fill: 'forwards',
+          }
+        );
+
+        wolfAnimation.onfinish = () => {
+          this.checkCollisionsWithWolves();
+          document.body.removeChild(wolfClone);
+        };
+      });
+      emoticonContainer.removeChild(wolf);
     }
   }
 
-  restartGame(): void {
+  createAsterisk(container: HTMLElement, x: number, y: number) {
+    const asterisk = document.createElement('div');
+    asterisk.className = 'asterisk';
+    asterisk.textContent = '*';
+    asterisk.style.position = 'absolute';
+    asterisk.style.left = `${x}px`;
+    asterisk.style.top = `${y}px`;
+    asterisk.style.color = 'red';
+    asterisk.style.fontSize = '30px';
+    container.appendChild(asterisk);
+
+    setTimeout(() => {
+      container.removeChild(asterisk);
+    }, 1000);
+  }
+
+  animateEmoticon(element: HTMLElement): void {
+    const randomX = Math.floor(Math.random() * 500) - 250;
+    const randomY = Math.floor(Math.random() * 500) - 250;
+    element.animate(
+      [
+        { transform: 'translate(0, 0)' },
+        { transform: `translate(${randomX}px, ${randomY}px)` },
+        { transform: 'translate(0, 0)' },
+      ],
+      {
+        duration: 3000,
+        iterations: Infinity,
+        easing: 'ease-in-out',
+      }
+    );
+  }
+
+  checkCollisions() {
+    if (this.gameOver) return;
+
+    const emoticonContainer = document.getElementById('emoticonContainer');
+    if (emoticonContainer) {
+      const arrows = document.querySelectorAll(
+        '.arrow'
+      ) as NodeListOf<HTMLElement>;
+      const emoticons = emoticonContainer.querySelectorAll(
+        '.emoticon'
+      ) as NodeListOf<HTMLElement>;
+
+      arrows.forEach((arrow) => {
+        const arrowRect = arrow.getBoundingClientRect();
+        emoticons.forEach((emoticon) => {
+          const emoticonRect = emoticon.getBoundingClientRect();
+          if (this.isCollision(arrowRect, emoticonRect)) {
+            this.updatePoints();
+            this.createAsterisk(
+              emoticonContainer,
+              emoticonRect.left,
+              emoticonRect.top
+            );
+            this.addElfEmoji();
+          }
+        });
+      });
+    }
+  }
+
+  checkCollisionsWithWolves() {
+    if (this.gameOver) return;
+
+    const emoticonContainer = document.getElementById('emoticonContainer');
+    if (emoticonContainer) {
+      const wolves = document.querySelectorAll(
+        '.wolf'
+      ) as NodeListOf<HTMLElement>;
+      const emoticons = emoticonContainer.querySelectorAll(
+        '.emoticon'
+      ) as NodeListOf<HTMLElement>;
+
+      wolves.forEach((wolf) => {
+        const wolfRect = wolf.getBoundingClientRect();
+        emoticons.forEach((emoticon) => {
+          const emoticonRect = emoticon.getBoundingClientRect();
+          if (this.isCollision(wolfRect, emoticonRect)) {
+            this.updatePointsWithWolves();
+            this.createAsterisk(
+              emoticonContainer,
+              emoticonRect.left,
+              emoticonRect.top
+            );
+          }
+        });
+      });
+    }
+  }
+
+  isCollision(rect1: DOMRect, rect2: DOMRect): boolean {
+    return !(
+      rect1.right < rect2.left ||
+      rect1.left > rect2.right ||
+      rect1.bottom < rect2.top ||
+      rect1.top > rect2.bottom
+    );
+  }
+
+  updatePoints() {
+    this.points += 10;
+    this.updatePointsDisplay();
+    this.playPointSound();
+  }
+
+  updatePointsWithWolves() {
+    this.points += 10;
+    this.updatePointsDisplay();
+    this.playPointSound();
+    this.addWolfEmoji();
+  }
+
+  updatePointsDisplay() {
+    const pointsElement = document.getElementById('points');
+    if (pointsElement) {
+      pointsElement.textContent = this.points.toString();
+      this.checkWinCondition();
+    }
+  }
+
+  playPointSound() {
+    this.pointSound.play();
+  }
+
+  addWolfEmoji() {
+    const wolfContainer = document.getElementById('wolfContainer');
+    if (wolfContainer) {
+      const wolfEmoji = document.createElement('span');
+      wolfEmoji.className = 'wolf-emoji';
+      wolfEmoji.textContent = '🐺';
+      wolfContainer.appendChild(wolfEmoji);
+
+      if (wolfContainer.children.length > 10) {
+        wolfContainer.removeChild(wolfContainer.firstChild!);
+      }
+    }
+  }
+
+  addElfEmoji() {
+    const elfContainer = document.getElementById('elfContainer');
+    if (elfContainer) {
+      const elfEmoji = document.createElement('span');
+      elfEmoji.className = 'elf-emoji';
+      elfEmoji.textContent = '🧚';
+      elfContainer.appendChild(elfEmoji);
+
+      if (elfContainer.children.length > 5) {
+        elfContainer.removeChild(elfContainer.firstChild!);
+      }
+    }
+  }
+
+  checkWinCondition() {
+    if (this.points >= 5000) {
+      this.gameOver = true;
+      this.stopAllAnimations();
+      this.disableButtons();
+
+      this.displayGameOverMessage();
+
+      const winMessage = document.getElementById('winMessage');
+      if (winMessage) {
+        this.createAsterisk(
+          winMessage,
+          winMessage.offsetLeft,
+          winMessage.offsetTop
+        );
+        winMessage.style.display = 'block';
+      }
+
+      const restartButton = document.getElementById('restartButton');
+      if (restartButton) {
+        restartButton.style.display = 'inline';
+      }
+    }
+  }
+
+  stopAllAnimations() {
+    const animations = document.querySelectorAll(
+      '*[style*="animation"]'
+    ) as NodeListOf<HTMLElement>;
+    animations.forEach((animation) => {
+      animation.style.animationPlayState = 'paused';
+    });
+  }
+
+  disableButtons() {
+    const buttons = document.querySelectorAll(
+      'button'
+    ) as NodeListOf<HTMLButtonElement>;
+    buttons.forEach((button) => {
+      button.disabled = true;
+    });
+  }
+
+  restartGame() {
     this.points = 0;
+    this.updatePointsDisplay();
     this.gameOver = false;
+
+    const buttons = document.querySelectorAll(
+      'button'
+    ) as NodeListOf<HTMLButtonElement>;
+    buttons.forEach((button) => {
+      button.disabled = false;
+    });
+
     const emoticonContainer = document.getElementById('emoticonContainer');
     if (emoticonContainer) {
       emoticonContainer.innerHTML = '';
     }
+
+    const wolfContainer = document.getElementById('wolfContainer');
+    if (wolfContainer) {
+      wolfContainer.innerHTML = '';
+    }
+
+    const elfContainer = document.getElementById('elfContainer');
+    if (elfContainer) {
+      elfContainer.innerHTML = '';
+    }
+
+    const winMessage = document.getElementById('winMessage');
+    if (winMessage) {
+      winMessage.style.display = 'none';
+    }
+
+    const restartButton = document.getElementById('restartButton');
+    if (restartButton) {
+      restartButton.style.display = 'none';
+    }
+
+    this.startGame();
   }
 
-  checkCollision(a: HTMLElement, b: HTMLElement): boolean {
-    const aRect = a.getBoundingClientRect();
-    const bRect = b.getBoundingClientRect();
-    return !(
-      aRect.top + aRect.height < bRect.top ||
-      aRect.top > bRect.top + bRect.height ||
-      aRect.left + aRect.width < bRect.left ||
-      aRect.left > bRect.left + bRect.width
-    );
+  displayWinMessage() {
+    const winMessage = document.getElementById('winMessage');
+    if (winMessage) {
+      winMessage.textContent = '🎉 You Win! 🎉';
+      winMessage.style.color = 'green';
+      winMessage.style.fontSize = '24px';
+    }
   }
 
-  animateEmoticon(emoticon: HTMLElement): void {
-    const duration = 5000;
-    const start = Date.now();
-    const startX = Math.random() * window.innerWidth;
-    const startY = Math.random() * window.innerHeight;
+  displayGameOverMessage() {
+    const gameOverMessage = document.getElementById('gameOverMessage');
+    if (gameOverMessage) {
+      gameOverMessage.textContent = 'Game Over!';
+      gameOverMessage.style.color = 'red';
+      gameOverMessage.style.fontSize = '24px';
+      gameOverMessage.style.position = 'absolute';
+      gameOverMessage.style.top = '70%';
+      gameOverMessage.style.left = '50%';
+      gameOverMessage.style.transform = 'translate(-50%, -50%)';
+      gameOverMessage.style.zIndex = '1000';
+    }
+    this.playLaughSound();
+  }
 
-    const animate = () => {
-      const elapsed = Date.now() - start;
-      const progress = elapsed / duration;
-      if (progress < 1) {
-        const x = startX + Math.sin(progress * Math.PI * 2) * 100;
-        const y = startY + progress * window.innerHeight;
-        emoticon.style.transform = `translate(${x}px, ${y}px)`;
-        requestAnimationFrame(animate);
-      } else {
-        emoticon.remove();
-      }
-    };
-
-    animate();
+  playLaughSound() {
+    this.laughSound.play();
   }
 }

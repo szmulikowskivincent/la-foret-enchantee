@@ -1,28 +1,16 @@
 <div class="navbar">
   <div class="navbar-logo">🌳 La Forêt Enchantée 🌳</div>
   <div class="player-info">
-    <img [src]="playerAvatar" alt="Avatar" />
-    <div>
-      <h3 style="color: rgb(242, 255, 0)">Joueur: {{ playerName }}</h3>
-      <h3 style="color: red">Dernier score: {{ playerScore }}</h3>
-    </div>
-    <div class="avatar-selector">
-      <label for="avatarSelect" style="display: none">Choisir un avatar:</label>
-      <select
-        id="avatarSelect"
-        (change)="changeAvatar($event)"
-        style="
-          inline-size: 125%;
-          border-radius: 5px;
-          border-color: chartreuse;
-          font-size: 18px;
-        "
-      >
-        <option *ngFor="let avatar of availableAvatars" [value]="avatar.src">
-          {{ avatar.name }}
-        </option>
-      </select>
-    </div>
+    <img
+      alt="Avatar du joueur"
+      class="player-avatar"
+      src="assets/avatar/Avatar/avatar1.png"
+    />
+    <h2 style="color: chartreuse">{{ playerName }}</h2>
+    <h2 style="color: red">
+      Score: <span id="points">{{ points }}</span>
+    </h2>
+    <h3 style="color: blue">High Score: {{ playerScore }}</h3>
   </div>
   <div class="points-container">
     <h2>
@@ -32,10 +20,13 @@
     <div id="elfContainer"></div>
   </div>
 </div>
-
 <div class="container">
   <div class="center-button">
-    <button class="start-game-button" (click)="startGame()">
+    <button
+      class="start-game-button"
+      (click)="startGame()"
+      style="background-color: chartreuse; font-size: 18px; border-radius: 5px"
+    >
       Commencer la partie
     </button>
     &#160;&#160;&#160;&#160;
@@ -43,9 +34,9 @@
       class="launch-arrows-button"
       (click)="launchArrows()"
       style="
-        background-color: rgb(255, 0, 195);
-        border-radius: 5px;
+        background-color: rgb(182, 177, 177);
         font-size: 18px;
+        border-radius: 5px;
       "
     >
       Lancer des flèches
@@ -55,9 +46,9 @@
       class="launch-wolves-button"
       (click)="launchWolves()"
       style="
-        background-color: rgb(7, 96, 250);
-        border-radius: 5px;
+        background-color: rgb(255, 0, 162);
         font-size: 18px;
+        border-radius: 5px;
       "
     >
       Lancer des loups
@@ -67,21 +58,15 @@
       id="restartButton"
       class="restart-button"
       (click)="restartGame()"
-      style="
-        background-color: rgb(129, 128, 127);
-        border-radius: 5px;
-        font-size: 18px;
-      "
+      style="background-color: aqua; font-size: 18px; border-radius: 5px"
     >
       Recommencer
     </button>
   </div>
-
   <h3 align="center" style="color: yellow">
     ⚠️☠️🚨 Votre zone de Jeu ▄︻デ══━一💥
   </h3>
   <h3 align="center">𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣👹🐉𓆩🖤𓆪🏴‍☠️☠💪🦅🧟‍♂️🦇🦕☠️☠️☠️𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣</h3>
-
   <div class="container">
     <div class="cards-container">
       <div *ngIf="selectedHero" class="hero-card">
@@ -108,22 +93,20 @@
       </div>
     </div>
   </div>
-
   <div class="tree-border">
     <div class="emoticon-container" id="emoticonContainer">
       <!-- Emoticons will be dynamically added here -->
     </div>
   </div>
-
-  <div id="gameOverMessage"></div>
-  <div id="winMessage"></div>
-
+  <div id="winMessage" class="win-message">You Win!</div>
   <h3 align="center">𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣👹🐉𓆩🖤𓆪🏴‍☠️☠💪🦅🧟‍♂️🦇🦕☠️☠️☠️𓂀𓂀𓂀𓋹𓁈𓃠𓆃☥𓅓𓆣</h3>
-
   <div align="center">
     <audio controls autoplay loop>
       <source src="assets/audio/a-afligida-170515.mp3" type="audio/mpeg" />
       Votre navigateur ne supporte pas l'élément audio.
     </audio>
   </div>
+  <!-- Ajoutez ces éléments où vous voulez afficher les messages -->
+  <div id="gameOverMessage"></div>
+  <div id="winMessage"></div>
 </div>
