@@ -28,7 +28,7 @@
       (click)="startGame()"
       style="background-color: chartreuse; font-size: 18px; border-radius: 5px"
     >
-      Commencer la partie
+      Register
     </button>
     &#160;&#160;&#160;&#160;
     <button
@@ -61,7 +61,7 @@
       (click)="restartGame()"
       style="background-color: aqua; font-size: 18px; border-radius: 5px"
     >
-      Recommencer
+      Commencer la partie
     </button>
   </div>
   <h3 align="center" style="color: yellow">
@@ -107,7 +107,57 @@
       Votre navigateur ne supporte pas l'élément audio.
     </audio>
   </div>
-  <!-- Ajoutez ces éléments où vous voulez afficher les messages -->
   <div id="gameOverMessage"></div>
   <div id="winMessage"></div>
+</div>
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Enregistrement</h2>
+    <form (ngSubmit)="registerPlayer()" #registrationForm="ngForm">
+      <div class="form-group">
+        <label for="name">Pseudo:</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="playerName"
+          name="name"
+          required
+          #name="ngModel"
+          [class.invalid]="name.invalid && (name.dirty || name.touched)"
+        />
+        <div
+          *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="error-message"
+        >
+          Pseudo est requis.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="playerEmail"
+          name="email"
+          required
+          #email="ngModel"
+          [class.invalid]="email.invalid && (email.dirty || email.touched)"
+        />
+        <div
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="error-message"
+        >
+          Email est requis.
+        </div>
+      </div>
+      <button
+        type="submit"
+        [disabled]="registrationForm.invalid"
+        onclick="startGame()"
+      >
+        Commencer la partie
+      </button>
+    </form>
+  </div>
 </div>

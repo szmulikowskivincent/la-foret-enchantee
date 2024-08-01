@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ChoixComponent } from './components/choix/choix.component';
 import { ZoneDeJeuComponent } from './components/zone-de-jeu/zone-de-jeu.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ZoneDeJeuComponent } from './components/zone-de-jeu/zone-de-jeu.compone
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

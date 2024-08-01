@@ -306,3 +306,84 @@ body {
     gap: 10px;
   }
 }
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  inline-size: 80%;
+  max-inline-size: 500px;
+  border-radius: 10px;
+}
+
+.close {
+  color: #aaa;
+  float: inline-end;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  margin-block-start: 10px;
+}
+
+input {
+  inline-size: 100%;
+  padding: 8px;
+  margin-block-start: 5px;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  margin-block-start: 15px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-block-end: 15px;
+}
+
+input.invalid {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-block-start: 5px;
+}
+
+button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}

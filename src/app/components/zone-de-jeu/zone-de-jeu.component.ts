@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-zone-de-jeu',
@@ -13,13 +13,15 @@ export class ZoneDeJeuComponent implements OnInit {
   selectedWeapon: any;
   points: number = 0;
   playerName: string = 'Vincent';
+  playerEmail: string = '';
   playerScore: number = 5126;
   playerAvatar: string = 'assets/avatar/Avatar/avatar1.png';
   private pointSound = new Audio('assets/audio/07-galaga-dive-2-83169.mp3');
   private laughSound = new Audio('assets/audio/game-over-31-179699.mp3');
   gameOver: boolean = false;
+  showModal: boolean = false;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -29,6 +31,21 @@ export class ZoneDeJeuComponent implements OnInit {
       this.selectedWeapon = JSON.parse(params['weapon']);
     });
     this.loadPlayerInfo();
+  }
+
+  startGame() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+  registerPlayer() {
+    if (this.playerName && this.playerEmail) {
+      this.showModal = false;
+    } else {
+      alert('Veuillez remplir tous les champs.');
+    }
   }
 
   loadPlayerInfo() {
@@ -62,7 +79,7 @@ export class ZoneDeJeuComponent implements OnInit {
     localStorage.setItem('playerAvatar', newAvatar);
   }
 
-  startGame() {
+  startGamePlay() {
     if (this.gameOver) return;
 
     const emoticonContainer = document.getElementById('emoticonContainer');
@@ -86,6 +103,10 @@ export class ZoneDeJeuComponent implements OnInit {
         }
       });
     }
+  }
+
+  refreshPage() {
+    window.location.reload();
   }
 
   launchArrows() {
@@ -402,7 +423,7 @@ export class ZoneDeJeuComponent implements OnInit {
       restartButton.style.display = 'none';
     }
 
-    this.startGame();
+    this.startGamePlay();
   }
 
   displayWinMessage() {
